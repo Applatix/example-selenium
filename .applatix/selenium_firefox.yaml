@@ -1,0 +1,55 @@
+---
+type: service_template
+subtype: container
+name: selenium_server_firefox
+description: Base selenium container for selenium firefox
+container:
+  resources:
+    mem_mib: 1024
+    cpu_cores: 0.1
+  image: get.applatix.io/applatix/selenium/standalone-firefox:3.0.1-aluminum-49.0.1
+inputs:
+outputs:
+
+---
+type: service_template
+subtype: container
+name: selenium-test-base-firefox
+description: Base selenium test container
+container:
+  resources:
+    mem_mib: 1024
+    cpu_cores: 0.1
+  image: get.applatix.io/axdevopsbuilder:v2
+  command: sh -c 'pip3 install selenium && python3 /src/selenium_standalone_test.py --remote %%selenium_ip%% --browser firefox'
+inputs:
+  artifacts:
+  - from: "%%code%%"
+    path: "/src"
+  parameters:
+    code:
+    selenium_ip:
+outputs:
+
+---
+type: service_template
+subtype: workflow
+name: Selenium FireFox Test
+description: This is the workflow for senlenium test
+fixtures:
+  - selenium_remote:
+      template: selenium_server_firefox
+inputs:
+  parameters:
+    commit:
+      default: "%%session.commit%%"
+    repo:
+      default: "%%session.repo%%"
+steps:
+  - checkout:
+      template: axscm-checkout
+  - test:
+      template: selenium-test-base-firefox
+      parameters:
+        code: "%%steps.checkout.code%%"
+        selenium_ip: "%%fixtures.selenium_remote.ip%%"
