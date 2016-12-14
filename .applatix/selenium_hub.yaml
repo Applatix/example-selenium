@@ -7,7 +7,7 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: get.applatix.io/applatix/selenium/hub:3.0.1-aluminum
+  image: "selenium/hub:latest"
 inputs:
 outputs:
 
@@ -20,7 +20,7 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: get.applatix.io/applatix/selenium/node-chrome:3.0.1-aluminum-53.0.2785
+  image: "selenium/node-chrome:latest"
   docker_options: "-e HUB_PORT_4444_TCP_PORT=4444 -e HUB_PORT_4444_TCP_ADDR=%%hub%%"
 inputs:
     parameters:
@@ -36,7 +36,7 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: get.applatix.io/applatix/selenium/node-firefox:3.0.1-aluminum-49.0.1
+  image: "selenium/node-firefox:latest"
   docker_options: "-e HUB_PORT_4444_TCP_PORT=4444 -e HUB_PORT_4444_TCP_ADDR=%%hub%%"
 inputs:
     parameters:
@@ -52,7 +52,7 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: get.applatix.io/axdevopsbuilder:v2
+  image: "python:3.5.2"
   command: sh -c 'pip3 install selenium && python3 /src/selenium_hub_test.py --remote %%selenium_ip%%'
 inputs:
   artifacts:
