@@ -14,7 +14,7 @@ outputs:
 ---
 type: service_template
 subtype: workflow
-name: Selenium Chrome Test
+name: Selenium Chrome Test with VNC
 description: This is the workflow for senlenium test
 fixtures:
   - selenium_remote:

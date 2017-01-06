@@ -40,7 +40,7 @@ outputs:
 ---
 type: service_template
 subtype: workflow
-name: Selenium Standalone VNC Test
+name: Selenium Standalone Test
 description: This is the workflow for senlenium test
 fixtures:
   - selenium_remote:
