@@ -29,7 +29,7 @@ def init_driver(remote, browser):
 
 
 def save_screenshot(driver, file_name, msg=''):
-    screenshot_dir = '/tmp/screenshot'
+    screenshot_dir = '/src/screenshot'
     if not os.path.exists(screenshot_dir):
         os.makedirs(screenshot_dir)
     screenshot_path = os.path.join(screenshot_dir, file_name)

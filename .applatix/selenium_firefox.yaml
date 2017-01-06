@@ -30,6 +30,9 @@ inputs:
     code:
     selenium_ip:
 outputs:
+  artifacts:
+    screenshot:
+      path: "/src/screenshot"
 
 ---
 type: service_template
