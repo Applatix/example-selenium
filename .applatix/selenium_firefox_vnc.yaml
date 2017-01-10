@@ -7,7 +7,7 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: "selenium/standalone-firefox-vnc:latest"
+  image: "selenium/standalone-firefox-debug:latest"
 inputs:
 outputs:
 
