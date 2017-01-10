@@ -1,31 +1,22 @@
 #! /usr/bin/env python
 
-import argparse
 import logging
 import os
 import sys
 
-from selenium import webdriver
+import pytest
+
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-logger = logging.getLogger('selenium_test')
+logger = logging.getLogger(__name__)
 
-
-def init_driver(remote, browser):
-    logger.info('Selenium remote is %s', remote)
-    logger.info('Test with browser %s', browser)
-    if browser.lower() == 'chrome':
-        dc_browser = DesiredCapabilities.CHROME
-    elif browser.lower() == 'firefox':
-        dc_browser = DesiredCapabilities.FIREFOX
-    else:
-        raise NotImplementedError
-    return webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
-                            desired_capabilities=dc_browser)
+logging.basicConfig(format="%(asctime)s.%(msecs)03d %(levelname)s %(name)s %(threadName)s: %(message)s",
+                    datefmt="%Y-%m-%dT%H:%M:%S",
+                    level=logging.INFO,
+                    stream=sys.stdout)
 
 
 def save_screenshot(driver, file_name, msg=''):
@@ -94,37 +85,3 @@ def test_search_applatix(driver):
 
     save_screenshot(driver, 'mission', msg='Applatix Mission')
     logger.info('Test Pass')
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Perform key/value insertion and retrieval ")
-    parser.add_argument('--remote', required=True)
-    parser.add_argument('--browser', required=True)
-    args = parser.parse_args()
-
-    logging.basicConfig(stream=sys.stdout,
-                        level=logging.INFO,
-                        format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-                        datefmt="%Y-%m-%dT%H:%M:%S")
-
-    driver = init_driver(args.remote, args.browser)
-    try:
-        test_search_applatix(driver)
-        logger.info('\n')
-        logger.info('='* 50)
-        test_title_in_google(driver)
-        logger.info('\n')
-        logger.info('='* 50)
-        test_title_in_python_org(driver)
-        logger.info('\n')
-        logger.info('='* 50)
-    except Exception as exc:
-        logger.info(exc)
-        save_screenshot(driver, 'crash', msg='crash')
-    finally:
-        logger.info('Closing Selenium Webdriver')
-        driver.close()
-
-
-if __name__ == '__main__':
-    main()
