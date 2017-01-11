@@ -35,7 +35,8 @@ outputs:
       path: "/src/screenshot"
     report:
       path: "/src/junitresult.xml"
-      test_reporting: "junit"
+      meta_data:
+        - "test_reporting:junit"
 
 ---
 type: service_template
