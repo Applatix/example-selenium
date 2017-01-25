@@ -1,27 +1,34 @@
 ---
 type: service_template
 subtype: container
-name: selenium_server_chrome_video
-description: Base selenium container for selenium chrome with video record
+name: vnc_recorder
+description: Base VNC recorder container
 container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: get.applatix.io/applatix/video-chrome:v1
+  image: get.applatix.io/applatix/axvncrecorder:v1
+  docker_options: "-e host=%%remote%% -e output=/tmp/output.flv"
 inputs:
+    parameters:
+      remote:
 outputs:
   artifacts:
     video:
-      path: "/tmp/video.flv"
+      path: "/tmp/output.flv"
 
 ---
 type: service_template
 subtype: workflow
-name: Selenium Chrome Test Video
+name: Selenium Chrome Test with Record
 description: This is the workflow for senlenium test
 fixtures:
   - selenium_remote:
-      template: selenium_server_chrome_video
+      template: selenium_server_chrome_vnc
+  - vnc_recorder:
+      template: vnc_recorder
+      parameters:
+        remote: "%%fixtures.selenium_remote.ip%%"
 inputs:
   parameters:
     commit:
