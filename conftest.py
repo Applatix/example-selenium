@@ -35,7 +35,7 @@ def driver(request):
         dc_browser = DesiredCapabilities.FIREFOX
     else:
         raise NotImplementedError
-    selenium_driver =  webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
-                                        desired_capabilities=dc_browser)
+    selenium_driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
+                                       desired_capabilities=dc_browser)
     yield selenium_driver
     selenium_driver.close()
