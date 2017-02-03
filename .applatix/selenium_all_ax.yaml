@@ -1,0 +1,54 @@
+---
+type: service_template
+subtype: container
+name: selenium_server_ax
+description: Base selenium container for selenium firefox and chrome
+container:
+  resources:
+    mem_mib: 1024
+    cpu_cores: 0.1
+  image: "hub.docker.com/r/applatix/%%platform%%:latest"
+inputs:
+  parameters:
+    platform:
+outputs:
+
+---
+type: service_template
+subtype: workflow
+name: Selenium Standalone Test One AX
+description: This is the workflow for senlenium test
+fixtures:
+  - selenium_remote:
+      template: selenium_server_ax
+      parameters:
+inputs:
+  parameters:
+    platform:
+    code:
+steps:
+  - test:
+      template: selenium-test-base
+      parameters:
+        selenium_ip: "%%fixtures.selenium_remote.ip%%"
+
+---
+type: service_template
+subtype: workflow
+name: Selenium Standalone Test All AX Images
+description: This is the workflow for senlenium test
+inputs:
+  parameters:
+    commit:
+      default: "%%session.commit%%"
+    repo:
+      default: "%%session.repo%%"
+steps:
+  - checkout:
+      template: axscm-checkout
+  - test:
+      template: Selenium Standalone Test One AX
+      parameters:
+        code: "%%steps.checkout.code%%"
+        platform: $$[ubuntu1604-chromelatest,ubuntu1604-chrome54,ubuntu1604-chrome53,ubuntu1604-chrome52,ubuntu1604-chrome50,ubuntu1604-chrome49]$$
+        selenium_ip: "%%fixtures.selenium_remote.ip%%"
