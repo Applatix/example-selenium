@@ -29,9 +29,9 @@ def driver(request):
     logger.info('Selenium remote is %s', remote)
     logger.info('Test with platform %s', platform)
 
-    if platform.lower().startswith('chrome'):
+    if 'chrome' in platform.lower():
         dc_browser = DesiredCapabilities.CHROME
-    elif platform.lower().startswith('firefox'):
+    elif 'firefox' in platform.lower():
         dc_browser = DesiredCapabilities.FIREFOX
     else:
         raise NotImplementedError
