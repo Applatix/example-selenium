@@ -21,7 +21,7 @@ The benefit of Grid mode are:
 * Gives the flexibility to distribute your test cases for execution
 * Reduces batch processing time
 * Can perform multi browser testing
-* Can perform multi OS testing
+* Can perform multi OS testing ..
 
 Service Template:
 
