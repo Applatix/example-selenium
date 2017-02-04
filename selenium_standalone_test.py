@@ -46,7 +46,7 @@ def test_title_in_python_org(driver):
     logger.info('Test Pass')
 
 
-def _test_search_applatix(driver):
+def test_search_applatix(driver):
     is_firefox = bool(driver.capabilities.get('browserName', '').lower() == 'firefox')
     wait = WebDriverWait(driver, 30)
 

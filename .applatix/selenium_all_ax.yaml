@@ -7,10 +7,11 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: "applatix/%%platform%%:latest"
+  image: "applatix/%%os%%-%%browser%%:latest"
 inputs:
   parameters:
-    platform:
+    os:
+    browser:
 outputs:
 
 ---
@@ -24,7 +25,8 @@ fixtures:
       parameters:
 inputs:
   parameters:
-    platform:
+    os:
+    browser:
     code:
 steps:
   - test:
@@ -50,5 +52,6 @@ steps:
       template: Selenium Standalone Test One AX
       parameters:
         code: "%%steps.checkout.code%%"
-        platform: $$[ubuntu1604-chromelatest,ubuntu1604-chrome54,ubuntu1604-chrome53,ubuntu1604-chrome52,ubuntu1604-chrome50,ubuntu1604-chrome49]$$
+        os: $$[ubuntu1604]$$
+        browser: $$[chromelatest,chrome54,chrome53,chrome52,chrome50,chrome49]$$
         selenium_ip: "%%fixtures.selenium_remote.ip%%"

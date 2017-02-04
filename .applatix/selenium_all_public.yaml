@@ -7,10 +7,10 @@ container:
   resources:
     mem_mib: 1024
     cpu_cores: 0.1
-  image: "selenium/standalone-%%platform%%:latest"
+  image: "selenium/standalone-%%browser%%:latest"
 inputs:
   parameters:
-    platform:
+    browser:
 outputs:
 
 ---
@@ -23,21 +23,21 @@ container:
     mem_mib: 1024
     cpu_cores: 0.1
   image: "python:3.5.2"
-  command: sh -c 'pip3 install selenium && pip3 install pytest && pytest -vv /src/selenium_standalone_test.py --remote %%selenium_ip%% --platform %%platform%% --capture=no --junitxml=/src/junitresult.xml'
+  command: sh -c 'pip3 install selenium && pip3 install pytest && pytest -vv /src/selenium_standalone_test.py --remote %%selenium_ip%% --browser %%browser%% --capture=no --junitxml=/src/seleniumresult.xml'
 inputs:
   artifacts:
   - from: "%%code%%"
     path: "/src"
   parameters:
     code:
-    platform:
+    browser:
     selenium_ip:
 outputs:
   artifacts:
     screenshot:
       path: "/src/screenshot"
     report:
-      path: "/src/junitresult.xml"
+      path: "/src/seleniumresult.xml"
       meta_data:
         - "test_reporting:junit"
 
@@ -52,7 +52,7 @@ fixtures:
       parameters:
 inputs:
   parameters:
-    platform:
+    browser:
     code:
 steps:
   - test:
@@ -79,5 +79,5 @@ steps:
       template: Selenium Standalone Test One
       parameters:
         code: "%%steps.checkout.code%%"
-        platform: $$[chrome,firefox,chrome-debug,firefox-debug]$$
+        browser: $$[chrome,firefox,chrome-debug,firefox-debug]$$
         selenium_ip: "%%fixtures.selenium_remote.ip%%"

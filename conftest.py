@@ -24,14 +24,14 @@ def pytest_addoption(parser):
 @pytest.fixture
 def driver(request):
     remote = request.config.getoption("--remote")
-    platform = request.config.getoption("--platform")
+    browser = request.config.getoption("--browser")
 
     logger.info('Selenium remote is %s', remote)
-    logger.info('Test with platform %s', platform)
+    logger.info('Test with platform %s', browser)
 
-    if 'chrome' in platform.lower():
+    if 'chrome' in browser.lower():
         dc_browser = DesiredCapabilities.CHROME
-    elif 'firefox' in platform.lower():
+    elif 'firefox' in browser.lower():
         dc_browser = DesiredCapabilities.FIREFOX
     else:
         raise NotImplementedError
