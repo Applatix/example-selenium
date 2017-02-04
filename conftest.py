@@ -17,8 +17,8 @@ logging.basicConfig(format="%(asctime)s.%(msecs)03d %(levelname)s %(name)s %(thr
 def pytest_addoption(parser):
     parser.addoption('--remote', action='store', default=None,
                      help='IP or hostname of selenium webdriver server')
-    parser.addoption("--platform", action="store", default=None,
-                     help='The name of the selenium image')
+    parser.addoption("--browser", action="store", default=None,
+                     help='The name of the browser mapping to selenium image')
 
 
 @pytest.fixture
