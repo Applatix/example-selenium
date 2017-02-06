@@ -43,6 +43,36 @@ outputs:
 
 ---
 type: service_template
+subtype: container
+name: selenium-test-base-2
+description: Base selenium test container
+container:
+  resources:
+    mem_mib: 1024
+    cpu_cores: 0.1
+  image: "python:3.5.2"
+  command: sh -c 'pip3 install selenium && pip3 install pytest && pytest -vv /src/selenium_standalone_test.py --remote %%selenium_ip%% --browser %%browser%% --capture=no --junitxml=/src/seleniumresult.xml'
+inputs:
+  artifacts:
+  - from: "%%code%%"
+    path: "/src"
+  parameters:
+    code:
+    os:
+    browser:
+    selenium_ip:
+outputs:
+  artifacts:
+    screenshot:
+      path: "/src/screenshot"
+    report:
+      path: "/src/seleniumresult.xml"
+      meta_data:
+        - "test_reporting:junit"
+
+
+---
+type: service_template
 subtype: workflow
 name: Selenium Standalone Test One
 description: This is the workflow for senlenium test

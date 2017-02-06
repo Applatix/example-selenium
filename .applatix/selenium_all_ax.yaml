@@ -30,7 +30,7 @@ inputs:
     code:
 steps:
   - test:
-      template: selenium-test-base
+      template: selenium-test-base-2
       parameters:
         selenium_ip: "%%fixtures.selenium_remote.ip%%"
 
