@@ -52,6 +52,6 @@ steps:
       template: Selenium Standalone Test One AX
       parameters:
         code: "%%steps.checkout.code%%"
-        os: $$[ubuntu1604,centos]$$
-        browser: $$[chromelatest,chrome54,chrome53,chrome52,chrome50,chrome49]$$
+        os: $$[ubuntu1604,ubuntu1404]$$
+        browser: $$[chromelatest,chrome54,chrome53,chrome52,chrome51,chrome50,chrome49,firefoxlatest,firefox50,firefox49,firefox48,firefox47,firefox46,firefox45]$$
         selenium_ip: "%%fixtures.selenium_remote.ip%%"
