@@ -2,6 +2,7 @@ import logging
 import sys
 
 import pytest
+from retrying import retry
 
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -21,6 +22,7 @@ def pytest_addoption(parser):
                      help='The name of the browser mapping to selenium image')
 
 
+@retry(wait_exponential_multiplier=1000, wait_exponential_max=600*1000)
 @pytest.fixture
 def driver(request):
     remote = request.config.getoption("--remote")
