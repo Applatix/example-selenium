@@ -41,12 +41,12 @@ def driver(request):
         try:
             selenium_driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
                                                desired_capabilities=dc_browser)
+            break
         except Exception as exc:
             logger.warn(exc)
             logger.info('Retry for Selenium webdriver')
-
-        time.sleep(2)
-        retries -= 1
+            time.sleep(2)
+            retries -= 1
 
     yield selenium_driver
     selenium_driver.close()
