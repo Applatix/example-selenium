@@ -1,8 +1,8 @@
 import logging
 import sys
+import time
 
 import pytest
-from retrying import retry
 
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -22,7 +22,6 @@ def pytest_addoption(parser):
                      help='The name of the browser mapping to selenium image')
 
 
-@retry(wait_exponential_multiplier=1000, wait_exponential_max=600*1000)
 @pytest.fixture
 def driver(request):
     remote = request.config.getoption("--remote")
@@ -37,7 +36,17 @@ def driver(request):
         dc_browser = DesiredCapabilities.FIREFOX
     else:
         raise NotImplementedError
-    selenium_driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
-                                       desired_capabilities=dc_browser)
+    retries = 10
+    while retries:
+        try:
+            selenium_driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
+                                               desired_capabilities=dc_browser)
+        except Exception as exc:
+            logger.warn(exc)
+            logger.info('Retry for Selenium webdriver')
+
+        time.sleep(2)
+        retries -= 1
+
     yield selenium_driver
     selenium_driver.close()
