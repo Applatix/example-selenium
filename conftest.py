@@ -36,7 +36,7 @@ def driver(request):
         dc_browser = DesiredCapabilities.FIREFOX
     else:
         raise NotImplementedError
-    retries = 10
+    retries = 20
     while retries:
         try:
             selenium_driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(remote),
@@ -45,7 +45,7 @@ def driver(request):
         except Exception as exc:
             logger.warn(exc)
             logger.info('Retry for Selenium webdriver')
-            time.sleep(2)
+            time.sleep(3)
             retries -= 1
 
     yield selenium_driver
