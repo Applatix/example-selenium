@@ -45,7 +45,7 @@ def driver(request):
         except Exception as exc:
             logger.warn(exc)
             logger.info('Retry for Selenium webdriver')
-            time.sleep(3)
+            time.sleep(5)
             retries -= 1
 
     yield selenium_driver
