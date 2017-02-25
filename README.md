@@ -26,4 +26,3 @@ The benefit of Grid mode are:
 Service Template:
 
 * selenium_hub.yaml
-* xxx
