@@ -1,6 +1,5 @@
 ---
-type: service_template
-subtype: workflow
+type: workflow
 name: Selenium Chrome Test - Record w/o converter
 description: This is the example of a senlenium test with video recorder
 fixtures:
@@ -32,8 +31,7 @@ steps:
 
 
 ---
-type: service_template
-subtype: workflow
+type: workflow
 name: Selenium Chrome Test - Record with converter
 description: This is the example of a senlenium test with video recorder and converter
 steps:

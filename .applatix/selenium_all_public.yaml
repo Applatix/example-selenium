@@ -1,6 +1,5 @@
 ---
-type: service_template
-subtype: container
+type: container
 name: selenium-server-public
 description: Base selenium container for selenium firefox and chrome
 container:
@@ -14,8 +13,7 @@ inputs:
 outputs:
 
 ---
-type: service_template
-subtype: container
+type: container
 name: selenium-test-base-public
 description: Base selenium test container
 container:
@@ -38,8 +36,7 @@ outputs:
       path: "/src/screenshot"
 
 ---
-type: service_template
-subtype: workflow
+type: workflow
 name: Selenium Standalone Test One Public
 description: This is the workflow for senlenium test
 fixtures:
@@ -58,8 +55,7 @@ steps:
         browser:
 
 ---
-type: service_template
-subtype: workflow
+type: workflow
 name: Selenium Standalone Test All Public Images
 description: This is the workflow for senlenium test
 inputs:

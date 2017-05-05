@@ -1,6 +1,5 @@
 ---
-type: service_template
-subtype: container
+type: container
 name: selenium_server_dynamic
 description: Base selenium container for selenium
 container:
@@ -14,8 +13,7 @@ inputs:
 outputs:
 
 ---
-type: service_template
-subtype: container
+type: container
 name: selenium-test-simple
 description: Base selenium test container
 container:
@@ -35,8 +33,7 @@ inputs:
 outputs:
 
 ---
-type: service_template
-subtype: workflow
+type: workflow
 name: Selenium Image Checker
 description: This is the workflow to verify selenium image
 fixtures:

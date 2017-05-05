@@ -1,6 +1,5 @@
 ---
-type: service_template
-subtype: container
+type: container
 name: selenium_server_chrome
 description: Base selenium container for selenium chrome
 container:
@@ -12,8 +11,7 @@ inputs:
 outputs:
 
 ---
-type: service_template
-subtype: container
+type: container
 name: selenium-test-base-chrome
 description: Base selenium test container
 container:
@@ -39,8 +37,7 @@ outputs:
         - "test_reporting:junit"
 
 ---
-type: service_template
-subtype: workflow
+type: workflow
 name: Selenium Chrome Test
 description: This is the workflow for senlenium test
 fixtures:
